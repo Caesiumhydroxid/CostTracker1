@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "879157814974",
+    "firebase_url": "https://costtracker-1feb6.firebaseio.com",
+    "project_id": "costtracker-1feb6",
+    "storage_bucket": "costtracker-1feb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879157814974:android:323105e22701ca73",
+        "android_client_info": {
+          "package_name": "com.example.jonas.costtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879157814974-e1o81o6fkujut3jjr5ppcjt9ukd90um3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jonas.costtracker",
+            "certificate_hash": "1d39d797c648120ff3d46b1c6d51e84018737a5a"
+          }
+        },
+        {
+          "client_id": "879157814974-vi74afjq354k0m3qne7dp65btecnnhgm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1kzfvca0bF6firs3xjoUJHi58_OzS418"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879157814974-vi74afjq354k0m3qne7dp65btecnnhgm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
