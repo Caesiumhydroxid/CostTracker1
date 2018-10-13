@@ -38,8 +38,8 @@ public class QrScanFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_qrscanner, container);
-        cameraView = (SurfaceView) v.findViewById(R.id.surface_view);
-        barcodeValue = (TextView) v.findViewById(R.id.message);
+        cameraView = v.findViewById(R.id.surface_view);
+        barcodeValue = v.findViewById(R.id.message);
 
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -73,7 +73,7 @@ public class QrScanFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         barcodeDetector = new BarcodeDetector.Builder(getContext())
-                .setBarcodeFormats(Barcode.ALL_FORMATS)
+                .setBarcodeFormats(Barcode.QR_CODE)
                 .build();
         cameraSource = new CameraSource.Builder(getContext(), (Detector<?>) barcodeDetector)
                 .setRequestedPreviewSize(1600, 1024)
@@ -96,7 +96,6 @@ public class QrScanFragment extends DialogFragment {
                         public void run() {
                             //Update barcode value to TextView
                             Barcode b = (Barcode) barcodes.valueAt(0);
-                            barcodeValue.setText(b.displayValue);
                             mListener.onComplete(b.displayValue);
                             getDialog().dismiss();
                         }
@@ -104,7 +103,7 @@ public class QrScanFragment extends DialogFragment {
                 }
             }
         });
-    }
+}
 
     public static interface OnCompleteListener {
         public abstract void onComplete(String dataFromQR);

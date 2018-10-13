@@ -16,9 +16,9 @@ public class ExpenseViewModel extends AndroidViewModel {
 
     }
 
-    LiveData<List<Expense>> getAllExpenses() { return allExpenses; }
+    public LiveData<List<Expense>> getAllExpenses() { return allExpenses; }
+
 
     public void insert(Expense exp) { repository.insert(exp); }
-
 
 }
