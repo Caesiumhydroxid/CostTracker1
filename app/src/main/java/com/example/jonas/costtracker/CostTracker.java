@@ -72,13 +72,13 @@ public class CostTracker extends AppCompatActivity implements QrScanFragment.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cost_tracker);
+
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
         final ExpenseListAdapter adapter = new ExpenseListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         expenseViewModel = ViewModelProviders.of(this).get(ExpenseViewModel.class);
-
         expenseViewModel.getAllExpenses().observe(this, new Observer<List<Expense>>() {
             @Override
             public void onChanged(@Nullable final List<Expense> expenses) {

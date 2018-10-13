@@ -41,6 +41,7 @@ public abstract class ExpenseRoomDatabase extends RoomDatabase {
 
     public abstract ExpenseDao expenseDao();
     private static volatile ExpenseRoomDatabase INSTANCE;
+
     static ExpenseRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (ExpenseRoomDatabase.class) {

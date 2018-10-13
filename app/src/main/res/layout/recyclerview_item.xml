@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:id="@+id/itemShopText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-    />
-</LinearLayout>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Hofer"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="18.08.18 15:30"
+        app:layout_constraintStart_toStartOf="@+id/itemShopText"
+        app:layout_constraintTop_toBottomOf="@+id/itemShopText" />
+
+    <TextView
+        android:id="@+id/itemMoneyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="10.05€"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toBottomOf="@+id/itemDateText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/itemShopText" />
+
+    <ImageView
+        android:id="@+id/itemCategoryImage"
+        android:layout_width="40dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/itemMoneyText"
+        app:layout_constraintEnd_toStartOf="@+id/itemMoneyText"
+        app:layout_constraintStart_toEndOf="@+id/itemDateText"
+        app:layout_constraintTop_toTopOf="@+id/itemMoneyText"
+        app:layout_constraintVertical_bias="0.0"
+        tools:srcCompat="@tools:sample/avatars" />
+</android.support.constraint.ConstraintLayout>
+
+

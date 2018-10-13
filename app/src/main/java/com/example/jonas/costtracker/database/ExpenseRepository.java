@@ -14,7 +14,7 @@ public class ExpenseRepository {
     ExpenseRepository(Application application) {
         ExpenseRoomDatabase db = ExpenseRoomDatabase.getDatabase(application);
         mExpenseDao = db.expenseDao();
-        allExpenses = mExpenseDao.getAllWords();
+        allExpenses = mExpenseDao.getAllExpenses();
     }
 
     LiveData<List<Expense>> getAllExpenses() {
@@ -22,9 +22,11 @@ public class ExpenseRepository {
     }
 
 
-    public void insert (Expense word) {
-        new insertAsyncTask(mExpenseDao).execute(word);
+    public void insert (Expense expense) {
+        new insertAsyncTask(mExpenseDao).execute(expense);
     }
+
+
 
     private static class insertAsyncTask extends AsyncTask<Expense, Void, Void> {
 

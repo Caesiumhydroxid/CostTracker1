@@ -13,6 +13,6 @@ public interface ExpenseDao {
     void insert(Expense expense);
 
     @Query("SELECT * from expense_table ORDER BY id ASC")
-    LiveData<List<Expense>> getAllWords();
+    LiveData<List<Expense>> getAllExpenses();
 
 }
