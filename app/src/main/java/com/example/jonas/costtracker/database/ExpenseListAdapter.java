@@ -12,18 +12,22 @@ import android.widget.TextView;
 
 import com.example.jonas.costtracker.R;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.ExpenseViewHolder>
 {
+    private final SimpleDateFormat dateFormat;
     class ExpenseViewHolder extends RecyclerView.ViewHolder{
         private final TextView expenseItemShopName;
         private final ImageView expenseItemImageCategory;
         private final TextView expenseItemMoneyText;
         private final TextView expenseItemDateText;
+
         private ExpenseViewHolder(View itemView)
         {
             super(itemView);
+
             expenseItemShopName = itemView.findViewById(R.id.itemShopText);
             expenseItemImageCategory = itemView.findViewById(R.id.itemCategoryImage);
             expenseItemMoneyText = itemView.findViewById(R.id.itemMoneyText);
@@ -34,7 +38,10 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     private List<Expense> expenses; // Cached copy of words
 
 
-    public ExpenseListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    public ExpenseListAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+        dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+    }
     @NonNull
     @Override
     public ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -58,9 +65,12 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
             else
                 expenseViewHolder.expenseItemShopName.setText("NULL");
 
-            expenseViewHolder.expenseItemMoneyText.setText(Integer.toString(current.getAmount()));
+            expenseViewHolder.expenseItemMoneyText.setText(Long.toString(current.getAmount()));
 
-            expenseViewHolder.expenseItemDateText.setText(Integer.toString(current.getTime()));
+            if(current.getTime()!=null) {
+
+                expenseViewHolder.expenseItemDateText.setText(dateFormat.format(current.getTime().getTime()));
+            }
         } else {
             // Covers the case of data not being ready yet.
             expenseViewHolder.expenseItemShopName.setText("No Word");

@@ -2,10 +2,12 @@ package com.example.jonas.costtracker.database;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import com.example.jonas.costtracker.database.converters.CalenderTypeConverter;
+
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity(tableName = "expense_table")
@@ -15,13 +17,16 @@ public class Expense {
     private int id;
 
     @NonNull
-    private int time;
+    @TypeConverters({CalenderTypeConverter.class})
+    private Calendar time;
 
     @NonNull
     private String seller;
 
+    private String cashierId;
+
     @NonNull
-    private int amount;
+    private long amount;
 
     @NonNull
     public int getId() {
@@ -29,8 +34,17 @@ public class Expense {
     }
 
     @NonNull
-    public int getTime() {
+    public Calendar getTime() {
         return time;
+    }
+
+
+    public String getCashierId() {
+        return cashierId;
+    }
+
+    public void setCashierId(String cashierId) {
+        this.cashierId = cashierId;
     }
 
     @NonNull
@@ -39,7 +53,7 @@ public class Expense {
     }
 
     @NonNull
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
@@ -47,7 +61,7 @@ public class Expense {
         this.id = id;
     }
 
-    public void setTime(@NonNull int time) {
+    public void setTime(@NonNull Calendar time) {
         this.time = time;
     }
 
@@ -55,7 +69,7 @@ public class Expense {
         this.seller = seller;
     }
 
-    public void setAmount(@NonNull int amount) {
+    public void setAmount(@NonNull long amount) {
         this.amount = amount;
     }
 }

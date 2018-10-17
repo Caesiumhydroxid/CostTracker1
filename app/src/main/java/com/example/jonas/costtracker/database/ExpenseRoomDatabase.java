@@ -8,7 +8,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-@Database(entities = {Expense.class}, version = 1)
+import java.util.Calendar;
+
+@Database(entities = {Expense.class}, version = 3)
 public abstract class ExpenseRoomDatabase extends RoomDatabase {
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
@@ -24,6 +26,8 @@ public abstract class ExpenseRoomDatabase extends RoomDatabase {
 
             Expense expense = new Expense();
             expense.setSeller("Test");
+            expense.setTime(Calendar.getInstance());
+            expense.setCashierId("1234");
             mDao.insert(expense);
             return null;
         }
@@ -49,6 +53,7 @@ public abstract class ExpenseRoomDatabase extends RoomDatabase {
                     // Create database here
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ExpenseRoomDatabase.class, "word_database").addCallback(sRoomDatabaseCallback)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

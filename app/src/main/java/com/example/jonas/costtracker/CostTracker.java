@@ -11,11 +11,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,33 +42,7 @@ public class CostTracker extends AppCompatActivity implements QrScanFragment.OnC
     private ImageView mImageView;
     private ExpenseViewModel expenseViewModel;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    return true;
-                case R.id.navigation_dashboard:
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.setCustomAnimations(R.anim.enter,R.anim.enter);
-
-                    Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-                    if (prev != null) {
-                        ft.remove(prev);
-                    }
-                    ft.addToBackStack(null);
-                    QrScanFragment dialogFragment = new QrScanFragment();
-                    dialogFragment.onAttach((Context)CostTracker.this);
-                    dialogFragment.show(getSupportFragmentManager(),"dialog");
-                    return true;
-                case R.id.navigation_notifications:
-                    return true;
-            }
-            return false;
-        }
-    };
 
 
 
@@ -72,24 +50,53 @@ public class CostTracker extends AppCompatActivity implements QrScanFragment.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cost_tracker);
+        setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+// Set the text for each tab.
+        tabLayout.addTab(tabLayout.newTab().setText("Test1"));
+        tabLayout.addTab(tabLayout.newTab().setText("Test2"));
+        tabLayout.addTab(tabLayout.newTab().setText("Test3"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
 
-        final ExpenseListAdapter adapter = new ExpenseListAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        expenseViewModel = ViewModelProviders.of(this).get(ExpenseViewModel.class);
-        expenseViewModel.getAllExpenses().observe(this, new Observer<List<Expense>>() {
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new
+                TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onChanged(@Nullable final List<Expense> expenses) {
-                // Update the cached copy of the words in the adapter.
-                adapter.setExpenses(expenses);
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+    }
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+
+    private void startScanningDialog()
+    {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.enter,R.anim.enter);
+
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        QrScanFragment dialogFragment = new QrScanFragment();
+        dialogFragment.onAttach((Context)CostTracker.this);
+        dialogFragment.show(getSupportFragmentManager(),"dialog");
     }
 
     private void reactToIncompatibleCode()
