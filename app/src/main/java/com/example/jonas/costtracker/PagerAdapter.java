@@ -15,7 +15,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                return new ExpenseListFragment();
+                return new MainScreenFragment();
             case 1:
                 return new ExpenseListFragment();
             case 2:
