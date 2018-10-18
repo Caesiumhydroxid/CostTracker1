@@ -17,7 +17,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new MainScreenFragment();
             case 1:
-                return new ExpenseListFragment();
+                return new AddExpenseFragment();
             case 2:
                 return new ExpenseListFragment();
             default:
