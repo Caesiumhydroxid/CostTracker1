@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,19 +30,19 @@ public class MainScreenFragment extends Fragment {
         chart.setCenterText("Super Cool Chart");
         chart.setCenterTextSize(10);
 
-        List<PieEntry> entries = new ArrayList<>();
         List<String> lables = new ArrayList<>();
-        for (int i=0;i<10;i++) {
+        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
-            // turn your data into Entry objects
-            PieEntry entry = new PieEntry(10.f,"Test");
-
-            entries.add(entry);
-
+        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+        // the chart.
+        for (int i = 0; i < 5 ; i++) {
+            entries.add(new PieEntry((float) i, "L"+i));
         }
-        PieDataSet dataSet = new PieDataSet(entries,"Test");
+
+        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
 
         PieData data = new PieData(dataSet);
+        data.setValueFormatter(new PercentFormatter());
         chart.setData(data);
         chart.invalidate();
         return v;
